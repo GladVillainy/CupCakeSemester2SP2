@@ -1,0 +1,1 @@
+All the database sql code will be added to this folder.
