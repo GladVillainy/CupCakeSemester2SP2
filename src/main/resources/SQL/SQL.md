@@ -1,1 +1,3 @@
-All the database sql code will be added to this folder.
+All the database data sql code will be added to this folder.
+
+Database name: cupcake
