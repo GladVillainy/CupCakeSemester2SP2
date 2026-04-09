@@ -1,0 +1,5 @@
+#cart img {
+    height: clamp(20px, 3vw, 30px);
+    cursor: pointer;
+    color: #333;
+}
