@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <script th:src="@{/js/hamburger.js}"></script>
     <link rel="stylesheet" th:href="@{/css/hamburger.css}">
-    <!-- Placeholder-->
     <title>CupCake</title>
 </head>
 <body>
 
-
-
-<!-- hamburger menu-->
-<div class = "container" onclick="ShowHide(x)" >
-    <div class = "bar1" ></div>
-    <div class = "bar2" ></div>
-    <div class = "bar3" ></div>
+<div class="container" onclick="Show(this)">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
 </div>
 
-<div id = "hamburgerMenu">
+<div id="hamburgerMenu">
     <h2><a href="#1">Placeholder 1</a></h2>
     <h2><a href="#2">Placeholder 2</a></h2>
     <h2><a href="#3">Placeholder 3</a></h2>
 </div>
+
+<!-- <script th:src="@{/js/hamburger.js}"></script>
+ <link rel="stylesheet" th:href="@{/css/hamburger.css}">-->
+<script th:src="@{/js/hamburger.js}"></script>
 </body>
 </html>
