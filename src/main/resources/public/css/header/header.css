@@ -1,0 +1,12 @@
+
+/* header alignment */
+.header-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: start;
+    min-height: 60px;
+}
+
+#hamburger { justify-self: start; }
+#logo      { justify-self: center; }
+#cart      { justify-self: end; }
