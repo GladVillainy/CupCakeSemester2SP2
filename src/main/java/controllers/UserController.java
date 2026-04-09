@@ -8,7 +8,7 @@ import persistence.UserMapper;
 import entities.User;
 
 public class UserController {
-
+/*
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
         app.get("/createuser", ctx -> ctx.render("createuser.html"));
         app.post("/createuser", ctx -> createUser(ctx, connectionPool));
@@ -26,7 +26,7 @@ public class UserController {
 
         //opret user i DB
         try {
-            UserMapper.createuser(username, password, connectionPool);
+            UserMapper.createUser(username, password, connectionPool);
             //alert bruger om at user er blevet lavet
             String createConfirm = username+" er nu blevet oprettet som bruger!";
             ctx.attribute("msg", createConfirm);
@@ -68,4 +68,6 @@ public class UserController {
         ctx.attribute("msg", logoutConfirm);
         ctx.render("index.html");
     }
+
+ */
 }
