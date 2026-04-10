@@ -1,9 +1,0 @@
-.product img {
-    width: 100%;
-    aspect-ratio: 1 / 1;    /* holder billedet kvadratisk ligesom Yeezy */
-    object-fit: contain;
-}
-.product {
-    padding: 20px;
-    border-raidus: 20px
-}

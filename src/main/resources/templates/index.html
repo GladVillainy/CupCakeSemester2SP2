@@ -11,9 +11,11 @@
     <link rel="stylesheet" th:href="@{/css/header/logo.css}">
     <link rel="stylesheet" th:href="@{/css/header/cart.css}">
 
-    <link rel="stylesheet" th:href="@{/css/items/body.css}">
-    <link rel="stylesheet" th:href="@{/css/items/product.css}">
+    <!-- Body css-->
+    <link rel="stylesheet" th:href="@{/css/body/product.css}">
 </head>
+
+
 <body>
 
 <div class="header-grid">
@@ -53,15 +55,15 @@
 </div>
 
 <div class="product-grid">
-    <div class="product">
-        <div class="product-list">
-            <img th:src="@{/images/logo.png}" alt="Logo">
-            <h2> Name of product</h2>
-        </div>
+    <div class="product" th:each="post : ${productList}">
+        <img th:src="@{/images/{img}(img=${product.image})}">
+        <p th:text="${product.title}"></p>
     </div>
 </div>
 
+<div class ="custom-grid">
 
+</div>
 <!-- Place for js scripts -->
 <script th:src="@{/js/hamburger.js}"></script>
 
