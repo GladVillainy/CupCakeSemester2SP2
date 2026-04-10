@@ -1,5 +1,16 @@
+#cart {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
 #cart img {
     height: clamp(20px, 3vw, 30px);
-    cursor: pointer;
+}
+
+#cart span {
+    margin-bottom: -6px;
+    font-size: 14px;
     color: #333;
 }

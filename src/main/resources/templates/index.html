@@ -10,12 +10,13 @@
     <link rel="stylesheet" th:href="@{/css/header/hamburger.css}">
     <link rel="stylesheet" th:href="@{/css/header/logo.css}">
     <link rel="stylesheet" th:href="@{/css/header/cart.css}">
+
+    <link rel="stylesheet" th:href="@{/css/items/body.css}">
+    <link rel="stylesheet" th:href="@{/css/items/product.css}">
 </head>
 <body>
 
-
 <div class="header-grid">
-
     <!-- hamburger menu -->
     <div id="hamburger">
         <div class="hamburger-wrapper">
@@ -34,25 +35,30 @@
     </div>
 
     <!-- logo -->
-    <div id = "logo">
+    <div id="logo">
         <!-- link back to main page -->
-        <a href = "http://localhost:7070/">
+        <a href="http://localhost:7070/">
             <!-- picture -->
-            <img th:src="@{/images/logo.png}">
+            <img th:src="@{/images/logo.png}" alt="Logo">
         </a>
     </div>
 
     <!-- shopping cart -->
     <div id="cart">
-        <!-- placehodler link -->
-        <a href = "http://localhost:7070/">
-            <!-- picture -->
-            <img th:src="@{/images/shoppingBag.png}">
+            <span th:text = "{$placeholder}">0</span>
+            <img th:src="@{/images/shoppingBag.svg}" alt="ShoppingBag">
         </a>
     </div>
-
 </div>
 
+<div class="product-grid">
+    <div class="product">
+        <div class="product-list">
+            <img th:src="@{/images/logo.png}" alt="Logo">
+            <h2> Name of product</h2>
+        </div>
+    </div>
+</div>
 
 
 <!-- Place for js scripts -->
