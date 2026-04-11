@@ -15,29 +15,26 @@
 
     <!-- Body css-->
     <link rel="stylesheet" th:href="@{/css/body/product.css}">
-    <link rel="stylesheet" th:href="@{/css/body/customCupCake.css}">
 
     <!-- text css-->
-    <link rel="stylesheet" th:href="@{/css/text.css}">
+    <link rel="stylesheet" th:href="@{/css/textstyle.css}">
 </head>
-
 
 <body>
 
-<div class="header-grid">
+
+<header th:fragment="header" class="header-grid">
     <!-- hamburger menu -->
     <div id="hamburger">
         <div class="hamburger-wrapper">
             <div class="container" onclick="Show(this)">
                 <div class="bar1"></div>
                 <div class="bar2"></div>
-                <div class="bar3"></div>
             </div>
             <div id="hamburgerMenu">
                 <!-- options in burger menu -->
-                <h2><a href="#1">Placeholder 1</a></h2>
-                <h2><a href="#2">Placeholder 2</a></h2>
-                <h2><a href="#3">Placeholder 3</a></h2>
+                <h2><a href="#1">Login</a></h2>
+                <h2><a href="#2">Support</a></h2>
             </div>
         </div>
     </div>
@@ -57,16 +54,13 @@
         <span>0</span>
         <img th:src="@{/images/shoppingBag.svg}" alt="ShoppingBag">
     </div>
-</div>
+</header>
 
 <div class="product-grid">
     <figure class="product" th:each="product : ${productList}">
         <img th:src="@{/images/{img}(img=${product.image})}">
         <figcaption th:text="${product.title}"></figcaption>
     </figure>
-</div>
-
-    <div class="custom-grid">
         <figure class="product">
             <!-- link to custom cupcake place -->
             <a href="http://localhost:7070/Custom">
@@ -76,6 +70,7 @@
             </a>
         </figure>
     </div>
+</div>
 
 
 <!-- Place for js scripts -->

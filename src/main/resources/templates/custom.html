@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <title>CupCake</title>
+
+    <!-- Place for css -->
+    <!-- header css -->
+    <link rel="stylesheet" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" th:href="@{/css/header/hamburger.css}">
+    <link rel="stylesheet" th:href="@{/css/header/logo.css}">
+    <link rel="stylesheet" th:href="@{/css/header/cart.css}">
+
+    <!-- Body css-->
+    <link rel="stylesheet" th:href="@{/css/body/customCupCake.css}">
+
+    <!-- text css-->
+    <link rel="stylesheet" th:href="@{/css/text.css}">
+</head>
+<body>
+<header th:replace="~{index :: header}"></header>
+
+<div class="customPlacement">
+    <figure id="custom">
+        <!-- link to custom cupcake place -->
+            <!-- picture -->
+            <img th:src="@{/images/cupcakeform.png}" alt="CustomCupCake">
+            <figcaption>Custom Cupcake</figcaption>
+    </figure>
+</div>
+
+
+
+<!-- Place for js scripts -->
+<script th:src="@{/js/hamburger.js}"></script>
+</body>
+</html>

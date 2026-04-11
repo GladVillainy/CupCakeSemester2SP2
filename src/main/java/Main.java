@@ -31,6 +31,7 @@ public class Main {
 
         // Start
         javApp.get("/", ctx -> ctx.render("index.html"));
+        javApp.get("/Custom", ctx -> ctx.render("custom.html"));
 
         /*
         //SubStats app - Team - A
