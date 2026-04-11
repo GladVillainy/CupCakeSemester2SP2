@@ -8,8 +8,13 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: contain;
+    max-width: 150px;
 }
 .product {
     padding: 20px;
     border-raidus: 20px
+}
+
+.product:last-child {
+    grid-column: 2; /* Custom cupcake will be placed in middle*/
 }
