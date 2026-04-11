@@ -20,17 +20,32 @@
     <link rel="stylesheet" th:href="@{/css/textstyle.css}">
 </head>
 <body>
+<!-- imported header from index -->
 <header th:replace="~{index :: header}"></header>
 
-<div class="customPlacement">
+<div class="customGrid">
     <figure id="custom">
-        <!-- link to custom cupcake place -->
-            <!-- picture -->
-            <img th:src="@{/images/cupcakeform.png}" alt="CustomCupCake">
-            <figcaption>Custom Cupcake</figcaption>
+        <!-- picture -->
+        <img th:src="@{/images/cupcakeform.png}" alt="CustomCupCake">
+        <figcaption>Custom Cupcake</figcaption>
     </figure>
-</div>
 
+    <!-- placeholder names -->
+    <div class="bottomGrid">
+        <button class="customButton"
+                th:each="bottom : ${bottoms}"
+                th:text="${bottom.name}">
+        </button>
+    </div>
+
+    <!-- placeholder names -->
+    <div class="toppingGrid">
+        <button class="customButton"
+                th:each="topping ${toppings}"
+                th:text="${topping.name}">
+        </button>
+    </div>
+</div>
 
 
 <!-- Place for js scripts -->
