@@ -1,0 +1,12 @@
+.custom-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.custom img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    max-width: 150px;
+}
