@@ -23,7 +23,7 @@ public class UserMapper {
 
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                int id = rs.getInt("id");
+                int id = rs.getInt("user_id");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 String role = rs.getString("role");
@@ -80,7 +80,7 @@ public class UserMapper {
             } else {
                 throw new DatabaseException("Fejl i login. Prøv igen");
             }
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             throw new DatabaseException("DB fejl: " + e.getMessage());
         }
     }
@@ -89,8 +89,9 @@ public class UserMapper {
 
         String sql = "INSERT INTO public.users (email, password, role, balance) VALUES (?, ?, ?, ?)";
 
-        try (Connection connection = connectionPool.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        try(Connection connection = connectionPool.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)) {
+
             ps.setString(1, email);
             ps.setString(2, password);
             ps.setString(3, role);
@@ -100,13 +101,12 @@ public class UserMapper {
             if(rowsAffected != 1) {
                 throw new DatabaseException("Fejl ved oprettelse af ny bruger");
             }
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             String msg = "Der er sket en fejl. Prøv igen";
-            if (e.getMessage().startsWith("ERROR: duplicate key value ")) {
-                msg = "Brugernavnet findes allerede. Vælg et andet";
+            if(e.getMessage().startsWith("ERROR: duplicate key value ")) {
+                msg = "E-mail findes allerede. Vælg en anden";
             }
-            throw new DatabaseException(e.getMessage());
+            throw new DatabaseException("DB fejl: " + e.getMessage() + " (" + msg + ")");
         }
-
     }
 }
