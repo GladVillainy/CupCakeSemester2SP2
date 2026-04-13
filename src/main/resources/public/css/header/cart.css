@@ -14,3 +14,66 @@
     font-size: 14px;
     color: #333;
 }
+
+.cartTab{
+    width: 400px;
+    position: fixed;
+    inset: 0 0 0 auto;
+
+    background-color: white;
+    border-color: black;
+    color: black;
+
+    display: grid;
+    grid-template-rows: 70px 1fr 70px;
+}
+
+.cartTab h2{
+  padding: 20px;
+  margin: 0;
+  font-weight: 300;
+}
+
+.cartTab .btn{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.cartTab .btn button{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300; /* Makes the text look thin */
+    letter-spacing: 0.05em;
+
+    cursor: pointer;
+    border-bottom-color: black;
+}
+
+.listCart{
+    overflow: auto;
+}
+
+.listCart::-webkit-scrollbar{
+    width: 0; /*fjerner scrollbar*/
+}
+
+.cartTab .listCart .cartItem{
+    display:grid;
+    grid-template-columns: 150px 50px 1fr;
+    gap: 10px;
+    text-align: center;
+}
+.listCart .quantity{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+.listCart .quantity span:nth-child(2){
+    /*makes the span number background transparent*/
+    background-color: transparent;
+    color: black;
+}
