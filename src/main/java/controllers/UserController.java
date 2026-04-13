@@ -8,7 +8,7 @@ import persistence.UserMapper;
 import entities.User;
 
 public class UserController {
-/*
+
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
         app.get("/createuser", ctx -> ctx.render("createuser.html"));
         app.post("/createuser", ctx -> createUser(ctx, connectionPool));
@@ -19,16 +19,17 @@ public class UserController {
 
     public static void createUser(Context ctx, ConnectionPool connectionPool){
         //hent data user/pass
-        String username = ctx.formParam("username");
+        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
+        String role = ctx.formParam("role");
+        double balance = 0;
 
-        //validate inputs
 
         //opret user i DB
         try {
-            UserMapper.createUser(username, password, connectionPool);
+            UserMapper.createUser(email, password, role, balance, connectionPool);
             //alert bruger om at user er blevet lavet
-            String createConfirm = username+" er nu blevet oprettet som bruger!";
+            String createConfirm = email+" er nu blevet oprettet som bruger!";
             ctx.attribute("msg", createConfirm);
             //tilbage til forside
             ctx.render("index.html");
@@ -41,16 +42,16 @@ public class UserController {
 
     public static void loginUser(Context ctx, ConnectionPool connectionPool){
         // henter data fra form
-        String username = ctx.formParam("username");
+        String email = ctx.formParam("email");
         String password = ctx.formParam("password");
 
         //logger bruger ind
         try {
-            User user = UserMapper.login(username, password, connectionPool);
+            User user = UserMapper.login(email, password, connectionPool);
             // sæt session til den brugte user
             ctx.sessionAttribute("currentUser", user);
-            //send bruger til messageboard
-            ctx.redirect("/messageboard");
+            //send bruger til index
+            ctx.render("index.html");
         } catch (DatabaseException e) {
             //hvis fejl skriv på siden
             ctx.attribute("msg", e.getMessage());
@@ -69,5 +70,4 @@ public class UserController {
         ctx.render("index.html");
     }
 
- */
 }
