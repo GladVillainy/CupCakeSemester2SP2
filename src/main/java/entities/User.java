@@ -21,4 +21,8 @@ public class User {
         this.role = role;
         this.balance = balance;
     }
+
+    public String getRole() {
+        return role;
+    }
 }

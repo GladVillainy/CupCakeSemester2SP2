@@ -30,6 +30,12 @@ class ShoppingCartController{
 }
 
 package entities {
+class Bottom{
+
+}
+class Topping{
+
+}
 class ShoppingCart{
 
 }

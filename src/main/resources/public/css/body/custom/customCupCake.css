@@ -1,0 +1,46 @@
+
+#custom {
+    grid-column: 2;
+    margin-top: 200px;
+}
+#custom img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    width: 30vw;
+    max-width: 300px;
+
+}
+
+.customGrid{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+}
+
+.bottomGrid{
+    grid-column: 1;
+    align-items: center;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.toppingGrid{
+    grid-column: 3;
+    align-items: center;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.customButton{
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300; /* Makes the text look thin */
+    letter-spacing: 0.05em;
+    background: none;
+    border: none;
+    text-align: center;
+}

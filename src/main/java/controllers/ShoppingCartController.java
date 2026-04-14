@@ -11,6 +11,9 @@ public class ShoppingCartController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
         app.post("/addToCart", ctx -> addToCart(ctx, connectionPool));
         app.get("/showFormerOrders", ctx -> showFormerOrders(ctx, connectionPool));
+        app.post("/payOrder", ctx -> payOrder(ctx, connectionPool));
+        app.get("/showTempOrder", ctx -> showTempOrder(ctx, connectionPool));
+        app.post("/removeItem", ctx -> removeItemFromOrder(ctx, connectionPool));
 
     }
 
@@ -39,13 +42,51 @@ public class ShoppingCartController {
 
         User user = ctx.sessionAttribute("currentUser");
 
-        List<Order> formerOrders = ShoppingCartMapper.showFormerOrders(user);
+        List<Cupcake> formerOrders = ShoppingCartMapper.showFormerOrders(user, connectionPool);
 
         ctx.attribute("orderList", formerOrders);
 
         //kan ændres til korrekte side
         ctx.render("orderSite.html");
 
+
+    }
+
+    public static void payOrder(Context ctx, ConnectionPool connectionPool) {
+
+        List<Cupcake> tempOrder = ctx.sessionAttribute("sessionOrderList");
+
+        ShoppingCartMapper.payOrder(tempOrder, connectionPool);
+
+        String confirmation = "Din ordre er nu blevet betalt, så den klar til afhentning!";
+        ctx.attribute("msg", confirmation);
+
+        ctx.render("index.html");
+
+    }
+
+    public static void showTempOrder(Context ctx, ConnectionPool connectionPool) {
+
+        List<Cupcake> tempOrder = ShoppingCartMapper.showTempOrder(ctx, connectionPool);
+
+        ctx.sessionAttribute("sessionOrderList", tempOrder);
+
+        //ingen confirmation behøvet her
+
+        ctx.render("index.html");
+    }
+
+    public static void removeItemFromOrder(Context ctx, ConnectionPool connectionPool) {
+
+        int itemID = ctx.formParam("itemID");
+
+        Cupcake cupcake = ShoppingCartMapper.getItemById(itemID, connectionPool);
+        ShoppingCartMapper.removeItemById(itemID, connectionPool);
+
+        String confirmation = cupcake.name+" er nu blevet lagt i kurven!";
+        ctx.attribute("msg", confirmation);
+
+        ctx.render("index.html");
 
     }
 

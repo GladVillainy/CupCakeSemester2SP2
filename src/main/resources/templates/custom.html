@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <title>CupCake</title>
+
+    <!-- Place for css -->
+    <!-- header css -->
+    <link rel="stylesheet" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" th:href="@{/css/header/hamburger.css}">
+    <link rel="stylesheet" th:href="@{/css/header/logo.css}">
+    <link rel="stylesheet" th:href="@{/css/header/cart.css}">
+
+    <!-- Body css-->
+    <link rel="stylesheet" th:href="@{/css/body/custom/customCupCake.css}">
+
+    <!-- text css-->
+    <link rel="stylesheet" th:href="@{/css/textstyle.css}">
+</head>
+<body>
+<!-- imported header from index -->
+<header th:replace="~{index :: header}"></header>
+
+<div class="customGrid">
+    <figure id="custom">
+        <!-- picture -->
+        <img th:src="@{/images/cupcakeform.png}" alt="CustomCupCake">
+        <figcaption>Custom Cupcake</figcaption>
+    </figure>
+
+    <form th:action="@{/order}" method="post">
+
+        <!-- attributer for order class -->
+        <input type="hidden"
+               id="selectedBottom"
+               name="BottomId"
+               value="">
+
+        <input type="hidden"
+               id="selectedTopping"
+               name="toppingId"
+               value="">
+
+        <!-- Makes a button for each topping/bottom in the db -->
+        <div class="bottomGrid">
+            <button class="customButton"
+                    th:each="bottom : ${bottoms}"
+                    th:text="${bottom.name}">
+            </button>
+        </div>
+
+        <div class="toppingGrid">
+            <button class="customButton"
+                    th:each="topping : ${toppings}"
+                    th:text="${topping.name}">
+            </button>
+        </div>
+
+        <!-- submits the form -->
+        <button type="submit"> Tilføj til kurven</button>
+    </form>
+
+    <!-- Place for js scripts -->
+    <script th:src="@{/js/hamburger.js}"></script>
+</div>
+</body>
+
+</html>
