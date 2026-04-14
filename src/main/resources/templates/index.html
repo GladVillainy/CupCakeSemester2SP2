@@ -52,6 +52,33 @@
         <span>0</span>
         <img th:src="@{/images/shoppingBag.svg}" alt="ShoppingBag">
     </div>
+
+    <div class="listCart">
+        <div class="cartItem" th:each="item : ${cartItems}">
+            <div class="cartProductName" th:text="${item.name}"></div>
+            <div class="cartProductPrice" th:text="${item.price}"></div>
+            <div class="quantity">
+                <!-- minus knap sender productId til cart/minus -->
+                <form th:action="@{/cart/minus}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <button type="submit" class="minus">-</button>
+                </form>
+
+                <!-- antal items vises som tekst -->
+                <span th:text="${item.quantity}">0</span>
+
+                <!-- plus knap sender productId til /cart/plus -->
+                <form th:action="@{/cart/plus}" method="post">
+                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <button type="submit" class="plus">+</button>
+                </form>
+            </div>
+        </div>
+        <div class = "btn">
+            <button class = "close">CLOSE</button>
+            <button class = "checkOut">CHECK OUT</button>
+        </div>
+    </div>
 </header>
 
 <div class="product-grid">
@@ -59,15 +86,15 @@
         <img th:src="@{/images/{img}(img=${product.image})}">
         <figcaption th:text="${product.title}"></figcaption>
     </figure>
-        <figure class="product">
-            <!-- link to custom cupcake place -->
-            <a href="http://localhost:7070/Custom">
-                <!-- picture -->
-                <img th:src="@{/images/cupcakeform.png}" alt="CustomCupCake">
-                <figcaption>Custom Cupcake</figcaption>
-            </a>
-        </figure>
-    </div>
+    <figure class="product">
+        <!-- link to custom cupcake place -->
+        <a href="http://localhost:7070/Custom">
+            <!-- picture -->
+            <img th:src="@{/images/cupcakeform.png}" alt="CustomCupCake">
+            <figcaption>Custom Cupcake</figcaption>
+        </a>
+    </figure>
+</div>
 </div>
 
 
