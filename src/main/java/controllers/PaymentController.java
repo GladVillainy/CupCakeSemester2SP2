@@ -15,7 +15,7 @@ public class PaymentController {
         String priceForCostumer = ctx.formParam("price");
         User costumer = ctx.sessionAttribute("currentUser");
 
-        ShoppingCartMapper.pay(priceForCostumer, costumer, connectionPool);
+        PaymentMapper.pay(priceForCostumer, costumer, connectionPool);
 
         String confirmation = priceForCostumer+" er nu blevet trukket fra "+costumer+"'s balance!";
         ctx.attribute("msg", confirmation);
