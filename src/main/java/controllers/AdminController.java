@@ -1,13 +1,21 @@
 package controllers;
 
+import entities.ListOfOrders;
+import entities.Order;
 import entities.User;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import persistence.ConnectionPool;
 import validators.adminValidator;
 
+import java.util.List;
+
 public class AdminController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
+        app.get("/admin", ctx -> ctx.render("admin.html"));
+        app.post("/addToBalance", ctx -> addToBalance(ctx, connectionPool));
+        app.post("/showPayedOrders", ctx -> showPayedOrders(ctx, connectionPool));
+        app.post("/showAllOrders", ctx -> showAllOrders(ctx, connectionPool));
 
     }
 
@@ -15,12 +23,15 @@ public class AdminController {
 
         if (adminValidator.check(ctx)) {
 
-            int amount = ctx.formParam("addToBalance");
-            User costumer = ctx.formParam("customer");
+            String stringAmount = ctx.formParam("addToBalance");
+            String stringcustomerId = ctx.formParam("customerId");
 
-            AdminMapper.addTobalance(amount, costumer, connectionPool);
+            int amount = Integer.parseInt(stringAmount);
+            int customerId = Integer.parseInt(stringcustomerId);
 
-            String confirmation = amount + " er nu blevet lagt oven i " + costumer + "'s balance!";
+            User costumer = AdminMapper.addTobalance(amount, customerId, connectionPool);
+
+            String confirmation = amount + " er nu blevet lagt oven i " + costumer.getEmail() + "'s balance!";
             ctx.attribute("msg", confirmation);
 
             ctx.render("admin.html");
@@ -33,7 +44,7 @@ public class AdminController {
 
         if (adminValidator.check(ctx)) {
 
-            List<Order> payedOrders = AdminMapper.showPayedOrders(connectionPool);
+            ListOfOrders payedOrders = AdminMapper.showPayedOrders(connectionPool);
 
             ctx.attribute("adminList", payedOrders);
 
@@ -45,7 +56,7 @@ public class AdminController {
 
         if (adminValidator.check(ctx)) {
 
-            List<Order> allOrders = AdminMapper.showAllOrders(connectionPool);
+            ListOfOrders allOrders = AdminMapper.showAllOrders(connectionPool);
 
             ctx.attribute("adminList", allOrders);
 
@@ -58,9 +69,9 @@ public class AdminController {
 
         if (adminValidator.check(ctx)) {
 
-            int id = ctx.formParam("orderId");
+            //int id = ctx.formParam("orderId");
 
-            AdminMapper.removeByOrderById(connectionPool);
+            //AdminMapper.removeByOrderById(connectionPool);
 
             String confirmation = "Orderen er nu blevet slettet fra databasen!";
             ctx.attribute("msg", confirmation);
