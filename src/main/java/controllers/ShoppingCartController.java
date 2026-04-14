@@ -1,9 +1,14 @@
 package controllers;
 
+import entities.Bottom;
+import entities.Cupcake;
+import entities.Topping;
 import entities.User;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import persistence.BottomMapper;
 import persistence.ConnectionPool;
+import persistence.ToppingMapper;
 
 import java.util.List;
 
@@ -19,20 +24,22 @@ public class ShoppingCartController {
 
     public static void addToCart(Context ctx, ConnectionPool connectionPool) {
 
-        //form til at hive cupcake ud og indstancere den --- HVIS DET ER EN COSTUM
-        String top =  ctx.formParam("topping");
-        String bottom = ctx.formParam("bottom");
-        Cupcake cupcake = new Cupcake(top, bottom);
+        //form til at hive cupcake ud og indstancere den
+        String stringTopId =  ctx.formParam("topping");
+        String stringBottomId = ctx.formParam("bottom");
 
-        //Hvis ikke Custom
-        Cupcake cupcake1 = ctx.formParam("cupcake");
+        int topId = Integer.parseInt(stringTopId);
+        int bottomId = Integer.parseInt(stringBottomId);
 
+        Topping topping = ToppingMapper.getToppingById(topId, connectionPool);
+        Bottom bottom = BottomMapper.getBottomById(bottomId, connectionPool);
 
+        Cupcake cupcake = new Cupcake(topping, bottom);
 
         ShoppingCartMapper.addToCart(cupcake, connectionPool);
         // måske noget med en arraylist fra en entities(shoppingcart)
         ShoppingCart.addCupcake(cupcake);
-        String confirmation = cupcake.name+" er nu blevet lagt i kurven!";
+        String confirmation = "Din cupcake er nu blevet lagt i kurven!";
         ctx.attribute("msg", confirmation);
         ctx.render("index.html");
 
@@ -78,12 +85,14 @@ public class ShoppingCartController {
 
     public static void removeItemFromOrder(Context ctx, ConnectionPool connectionPool) {
 
-        int itemID = ctx.formParam("itemID");
+        String stringItemId = ctx.formParam("itemId");
 
-        Cupcake cupcake = ShoppingCartMapper.getItemById(itemID, connectionPool);
-        ShoppingCartMapper.removeItemById(itemID, connectionPool);
+        int itemId = Integer.parseInt(stringItemId);
 
-        String confirmation = cupcake.name+" er nu blevet lagt i kurven!";
+        Cupcake cupcake = ShoppingCartMapper.getItemById(itemId, connectionPool);
+        ShoppingCartMapper.removeItemById(itemId, connectionPool);
+
+        String confirmation = "Din cupcake er nu fjernet fra kurven!";
         ctx.attribute("msg", confirmation);
 
         ctx.render("index.html");

@@ -30,39 +30,41 @@
         <figcaption>Custom Cupcake</figcaption>
     </figure>
 
-    <form th:action="@{/order}" method="post">
+    <form th:action="@{/addToCart}" method="post">
 
-        <!-- attributer for order class -->
-        <input type="hidden"
-               id="selectedBottom"
-               name="BottomId"
-               value="">
+        <input type="hidden" id="selectedBottom" name="BottomId" value="">
+        <input type="hidden" id="selectedTopping" name="toppingId" value="">
 
-        <input type="hidden"
-               id="selectedTopping"
-               name="toppingId"
-               value="">
-
-        <!-- Makes a button for each topping/bottom in the db -->
         <div class="bottomGrid">
-            <button class="customButton"
+            <button type="button"
+                    class="customButton"
                     th:each="bottom : ${bottoms}"
-                    th:text="${bottom.name}">
+                    th:text="${bottom.name}"
+                    th:attr="data-id=${bottom.id}"
+                    onclick="selectOption('selectedBottom', this)">
             </button>
         </div>
 
         <div class="toppingGrid">
-            <button class="customButton"
+            <button type="button"
+                    class="customButton"
                     th:each="topping : ${toppings}"
-                    th:text="${topping.name}">
+                    th:text="${topping.name}"
+                    th:attr="data-id=${topping.id}"
+                    onclick="selectOption('selectedTopping', this)">
             </button>
         </div>
+
+        <button type="submit">Bestil</button>
+
+    </form>
 
         <!-- submits the form -->
         <button type="submit"> Tilføj til kurven</button>
     </form>
 
     <!-- Place for js scripts -->
+    <script th:src="@{/js/order.js}"></script>
     <script th:src="@{/js/hamburger.js}"></script>
 </div>
 </body>
