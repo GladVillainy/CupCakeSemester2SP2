@@ -1,6 +1,8 @@
 
 import config.ThymeleafConfig;
 import controllers.CupcakeController;
+import controllers.IndexController;
+import controllers.ShoppingCartController;
 import entities.Cupcake;
 import persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -27,6 +29,8 @@ public class Main {
 
         // Routing
         CupcakeController.addRoutes(javApp, connectionPool);
+        ShoppingCartController.addRoutes(javApp,connectionPool);
+        IndexController.addRoutes(javApp,connectionPool);
 
         /*
         UserController.addRoutes(javApp, connectionPool);

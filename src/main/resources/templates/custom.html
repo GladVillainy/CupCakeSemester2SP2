@@ -31,7 +31,7 @@
     </figure>
 
     <form th:action="@{/addToCart}" method="post">
-        <input type="hidden" id="selectedBottom" name="BottomId" value="">
+        <input type="hidden" id="selectedBottom" name="bottomId" value="">
         <input type="hidden" id="selectedTopping" name="toppingId" value="">
 
         <div class="bottomGrid">
@@ -51,12 +51,13 @@
                     onclick="selectOption('selectedTopping', this)">
             </button>
         </div>
-
         <button type="submit">Tilføj til kurven</button>
     </form>
+</div>
     <!-- Place for js scripts -->
     <script th:src="@{/js/order.js}"></script>
     <script th:src="@{/js/hamburger.js}"></script>
+
 </body>
 
 </html>

@@ -22,6 +22,7 @@
 
 <body>
 <header th:fragment="header" class="header-grid">
+
     <!-- hamburger menu -->
     <div id="hamburger">
         <div class="hamburger-wrapper">
@@ -47,36 +48,47 @@
     </div>
 
     <!-- shopping cart -->
-    <div id="cart">
-        <!--<span th:text = "{$placeholder}">0</span>-->
-        <span>0</span>
-        <img th:src="@{/images/shoppingBag.svg}" alt="ShoppingBag">
-    </div>
+    <a th:href="@{/showTempOrder}">
+        <div id="cart">
+            <span th:text="${cartItemCount}">0</span>
+            <img th:src="@{/images/shoppingBag.svg}" alt="ShoppingBag">
+        </div>
+    </a>
+
+    <!-- representere Login med Email US-5 -->
+    <h2 th:if="${currentUserActive}">Velkommen: <p th:if="${currentUserActive}" th:text="${session.currentUser.email}"></p></h2>
 
     <div class="listCart">
-        <div class="cartItem" th:each="item : ${cartItems}">
-            <div class="cartProductName" th:text="${item.name}"></div>
-            <div class="cartProductPrice" th:text="${item.price}"></div>
+        <div class="cartItem" th:each="Cupcake : ${session.sessionOrderList}">
+            <p>Cupcake, Top og bund:</p>
+            <div class="cartProductTop" th:text="${Cupcake.topping.name}"></div>
+            <div class="cartProductBottom" th:text="${Cupcake.bottom.name}"></div>
+            <p>Samlet pris:</p>
+            <div class="cartProductPrice" th:text="${Cupcake.price}"></div>
             <div class="quantity">
                 <!-- minus knap sender productId til cart/minus -->
                 <form th:action="@{/cart/minus}" method="post">
-                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <!-- <input type="hidden" name="productId" th:value="${Cupcake.id}"> -->
                     <button type="submit" class="minus">-</button>
                 </form>
 
                 <!-- antal items vises som tekst -->
-                <span th:text="${item.quantity}">0</span>
+                    <!-- <span th:text="${Cupcake.quantity}">0</span> -->
 
-                <!-- plus knap sender productId til /cart/plus -->
+                    <!-- plus knap sender productId til /cart/plus -->
                 <form th:action="@{/cart/plus}" method="post">
-                    <input type="hidden" name="productId" th:value="${item.id}">
+                    <!--<input type="hidden" name="productId" th:value="${Cupcake.id}"> -->
                     <button type="submit" class="plus">+</button>
                 </form>
             </div>
         </div>
         <div class = "btn">
+            <form th:action="@{/closeTempOrder}" method="get">
             <button class = "close">CLOSE</button>
+            </form>
+            <form th:action="@{/pay}" method="post">
             <button class = "checkOut">CHECK OUT</button>
+            </form>
         </div>
     </div>
 </header>
@@ -95,11 +107,13 @@
         </a>
     </figure>
 </div>
+    <p th:text="${msg}"></p>
 </div>
 
 
 <!-- Place for js scripts -->
 <script th:src="@{/js/hamburger.js}"></script>
+<script th:src="@{/js/shoppingCart.js}"></script>
 
 </body>
 </html>

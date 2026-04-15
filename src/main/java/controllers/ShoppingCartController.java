@@ -22,8 +22,8 @@ public class ShoppingCartController {
     public static void addToCart(Context ctx, ConnectionPool connectionPool) {
 
         //form til at hive cupcake ud og indstancere den
-        String stringTopId =  ctx.formParam("topping");
-        String stringBottomId = ctx.formParam("bottom");
+        String stringTopId =  ctx.formParam("toppingId");
+        String stringBottomId = ctx.formParam("bottomId");
 
         int topId = Integer.parseInt(stringTopId);
         int bottomId = Integer.parseInt(stringBottomId);
@@ -48,9 +48,9 @@ public class ShoppingCartController {
 
         User user = ctx.sessionAttribute("currentUser");
 
-        List<Cupcake> formerOrders = ShoppingCartMapper.showFormerOrders(user, connectionPool);
+       // List<Cupcake> formerOrders = ShoppingCartMapper.showFormerOrders(user, connectionPool);
 
-        ctx.attribute("orderList", formerOrders);
+       // ctx.attribute("orderList", formerOrders);
 
         //kan ændres til korrekte side
         ctx.render("orderSite.html");
@@ -66,7 +66,7 @@ public class ShoppingCartController {
 
         //ingen confirmation behøvet her
 
-        ctx.render("index.html");
+        ctx.redirect("/index");
     }
 
     public static void removeItemFromTempOrder(Context ctx) {
