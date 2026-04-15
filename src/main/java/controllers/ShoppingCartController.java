@@ -1,9 +1,6 @@
 package controllers;
 
-import entities.Bottom;
-import entities.Cupcake;
-import entities.Topping;
-import entities.User;
+import entities.*;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import persistence.BottomMapper;
@@ -16,9 +13,9 @@ public class ShoppingCartController {
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
         app.post("/addToCart", ctx -> addToCart(ctx, connectionPool));
         app.get("/showFormerOrders", ctx -> showFormerOrders(ctx, connectionPool));
-        app.post("/payOrder", ctx -> payOrder(ctx, connectionPool));
-        app.get("/showTempOrder", ctx -> showTempOrder(ctx, connectionPool));
-        app.post("/removeItem", ctx -> removeItemFromOrder(ctx, connectionPool));
+        app.get("/showTempOrder", ctx -> showTempOrder(ctx));
+
+        //app.post("/removeItem", ctx -> removeItemFromTempOrder(ctx, connectionPool));
 
     }
 
@@ -36,9 +33,11 @@ public class ShoppingCartController {
 
         Cupcake cupcake = new Cupcake(topping, bottom);
 
-        ShoppingCartMapper.addToCart(cupcake, connectionPool);
-        // måske noget med en arraylist fra en entities(shoppingcart)
         ShoppingCart.addCupcake(cupcake);
+
+        //ShoppingCartMapper.addToCart(cupcake, connectionPool);
+        // måske noget med en arraylist fra en entities(shoppingcart)
+
         String confirmation = "Din cupcake er nu blevet lagt i kurven!";
         ctx.attribute("msg", confirmation);
         ctx.render("index.html");
@@ -59,22 +58,9 @@ public class ShoppingCartController {
 
     }
 
-    public static void payOrder(Context ctx, ConnectionPool connectionPool) {
+    public static void showTempOrder(Context ctx) {
 
-        List<Cupcake> tempOrder = ctx.sessionAttribute("sessionOrderList");
-
-        ShoppingCartMapper.payOrder(tempOrder, connectionPool);
-
-        String confirmation = "Din ordre er nu blevet betalt, så den klar til afhentning!";
-        ctx.attribute("msg", confirmation);
-
-        ctx.render("index.html");
-
-    }
-
-    public static void showTempOrder(Context ctx, ConnectionPool connectionPool) {
-
-        List<Cupcake> tempOrder = ShoppingCartMapper.showTempOrder(ctx, connectionPool);
+        List<Cupcake> tempOrder = ShoppingCart.getTempOrderList();
 
         ctx.sessionAttribute("sessionOrderList", tempOrder);
 
@@ -83,14 +69,13 @@ public class ShoppingCartController {
         ctx.render("index.html");
     }
 
-    public static void removeItemFromOrder(Context ctx, ConnectionPool connectionPool) {
+    public static void removeItemFromTempOrder(Context ctx) {
 
         String stringItemId = ctx.formParam("itemId");
 
         int itemId = Integer.parseInt(stringItemId);
 
-        Cupcake cupcake = ShoppingCartMapper.getItemById(itemId, connectionPool);
-        ShoppingCartMapper.removeItemById(itemId, connectionPool);
+        ShoppingCart.removeCupcakeById(itemId);
 
         String confirmation = "Din cupcake er nu fjernet fra kurven!";
         ctx.attribute("msg", confirmation);
