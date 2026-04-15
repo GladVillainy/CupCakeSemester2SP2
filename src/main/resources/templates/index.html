@@ -32,10 +32,17 @@
             </div>
             <div id="hamburgerMenu">
                 <!-- options in burger menu -->
-
                 <h2><a th:if = "${session.currentUserActive != 'true'}" href="/login">Log In</a></h2>
-                <h2><a th:if = "${session.currentUserActive}"
-                   th:href = "@{/logout}">Log Out</a></h2>
+
+                <h2><a th:href = "@{/createUser}">Create User</a></h2>
+
+
+                <div class="currentUserCheck" th:if = "${session.currentUserActive}">
+                <h2><a th:href = "@{/logout}">Log Out</a></h2>
+
+                <h2><a th:if = "${session.currentUser.role == 'admin'}"
+                       th:href = "@{/admin}">Admin</a></h2>
+                </div>
 
                 <h2><a href="/support">Support</a></h2>
             </div>
@@ -71,9 +78,10 @@
             <div class="cartProductPrice" th:text="${Cupcake.price}"></div>
             <div class="quantity">
                 <!-- minus knap sender productId til cart/minus -->
-                <form th:action="@{/cart/minus}" method="post">
-                    <!-- <input type="hidden" name="productId" th:value="${Cupcake.id}"> -->
-                    <button type="submit" class="minus">-</button>
+                <form th:action="@{/removeItem}" method="post">
+                    <input type="hidden" name="productToppingName" th:value="${Cupcake.topping.name}">
+                    <input type="hidden" name="productBottomName" th:value="${Cupcake.bottom.name}">
+                    <button type="submit" class="remove">Fjern</button>
                 </form>
 
                 <!-- antal items vises som tekst -->
@@ -112,9 +120,10 @@
             <figcaption>Custom Cupcake</figcaption>
         </a>
     </figure>
-</div>
     <p th:text="${msg}"></p>
 </div>
+
+
 
 
 <!-- Place for js scripts -->

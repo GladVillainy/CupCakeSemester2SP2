@@ -14,8 +14,7 @@ public class ShoppingCartController {
         app.post("/addToCart", ctx -> addToCart(ctx, connectionPool));
         app.get("/showFormerOrders", ctx -> showFormerOrders(ctx, connectionPool));
         app.get("/showTempOrder", ctx -> showTempOrder(ctx));
-
-        //app.post("/removeItem", ctx -> removeItemFromTempOrder(ctx, connectionPool));
+        app.post("/removeItem", ctx -> removeItemFromTempOrder(ctx));
 
     }
 
@@ -37,6 +36,8 @@ public class ShoppingCartController {
 
         String confirmation = "Din cupcake er nu blevet lagt i kurven!";
         ctx.attribute("msg", confirmation);
+
+        
         ctx.render("index.html");
 
     }
@@ -45,9 +46,7 @@ public class ShoppingCartController {
 
         User user = ctx.sessionAttribute("currentUser");
 
-       // List<Cupcake> formerOrders = ShoppingCartMapper.showFormerOrders(user, connectionPool);
-
-       // ctx.attribute("orderList", formerOrders);
+        // ctx.attribute("orderList", ShoppingCartMapper.showFormerOrders(user, connectionPool));
 
         //kan ændres til korrekte side
         ctx.render("orderSite.html");
@@ -57,9 +56,7 @@ public class ShoppingCartController {
 
     public static void showTempOrder(Context ctx) {
 
-        List<Cupcake> tempOrder = ShoppingCart.getTempOrderList();
-
-        ctx.sessionAttribute("sessionOrderList", tempOrder);
+        ctx.sessionAttribute("sessionOrderList", ShoppingCart.getTempOrderList());
         ctx.sessionAttribute("totalPrice", ShoppingCart.getTotalPrice());
 
         //ingen confirmation behøvet her
@@ -69,16 +66,16 @@ public class ShoppingCartController {
 
     public static void removeItemFromTempOrder(Context ctx) {
 
-        String stringItemId = ctx.formParam("itemId");
+        String toppingName = ctx.formParam("productToppingName");
+        String bottomName = ctx.formParam("productBottomName");
 
-        int itemId = Integer.parseInt(stringItemId);
 
-        ShoppingCart.removeCupcakeById(itemId);
+        ShoppingCart.removeCupcakeByBothNames(toppingName, bottomName);
 
         String confirmation = "Din cupcake er nu fjernet fra kurven!";
         ctx.attribute("msg", confirmation);
 
-        ctx.render("index.html");
+        ctx.redirect("/showTempOrder");
 
     }
 

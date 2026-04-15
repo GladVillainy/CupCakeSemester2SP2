@@ -1,9 +1,11 @@
 package controllers;
 
+import entities.ShoppingCart;
 import entities.User;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import persistence.ConnectionPool;
+import persistence.PaymentMapper;
 
 public class PaymentController {
 
@@ -12,10 +14,11 @@ public class PaymentController {
     }
 
     public static void pay(Context ctx, ConnectionPool connectionPool) {
-        String priceForCostumer = ctx.formParam("price");
+
+        double priceForCostumer = ShoppingCart.getTotalPrice();
         User costumer = ctx.sessionAttribute("currentUser");
 
-        PaymentMapper.pay(priceForCostumer, costumer, connectionPool);
+        //PaymentMapper.pay(priceForCostumer, costumer, connectionPool);
 
         String confirmation = priceForCostumer+" er nu blevet trukket fra "+costumer+"'s balance!";
         ctx.attribute("msg", confirmation);

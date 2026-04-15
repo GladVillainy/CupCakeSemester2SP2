@@ -85,12 +85,15 @@ public class UserMapper {
         }
     }
 
-    public static void createUser(String email, String password, String role, double balance, ConnectionPool connectionPool) {
+    public static void createUser(String email, String password, ConnectionPool connectionPool) {
 
         String sql = "INSERT INTO public.users (email, password, role, balance) VALUES (?, ?, ?, ?)";
 
         try(Connection connection = connectionPool.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql)) {
+
+            String role = "kunde";
+            double balance = 500;
 
             ps.setString(1, email);
             ps.setString(2, password);

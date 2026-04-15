@@ -10,8 +10,8 @@ import entities.User;
 public class UserController {
 
     public static void addRoutes(Javalin app, ConnectionPool connectionPool){
-        app.get("/createuser", ctx -> ctx.render("createuser.html"));
-        app.post("/createuser", ctx -> createUser(ctx, connectionPool));
+        app.get("/createUser", ctx -> ctx.render("createuser.html"));
+        app.post("/createUser", ctx -> createUser(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("login.html"));
         app.post("/login", ctx -> loginUser(ctx, connectionPool));
         app.get("/logout", ctx -> logoutUser(ctx));
@@ -20,24 +20,28 @@ public class UserController {
     public static void createUser(Context ctx, ConnectionPool connectionPool){
         //hent data user/pass
         String email = ctx.formParam("email");
-        String password = ctx.formParam("password");
-        String role = ctx.formParam("role");
-        double balance = 0;
+        String password1 = ctx.formParam("password1");
+        String password2 = ctx.formParam("password2");
 
-
-        //opret user i DB
-        try {
-            UserMapper.createUser(email, password, role, balance, connectionPool);
-            //alert bruger om at user er blevet lavet
-            String createConfirm = email+" er nu blevet oprettet som bruger!";
-            ctx.attribute("msg", createConfirm);
-            //tilbage til forside
-            ctx.render("index.html");
-        } catch (DatabaseException e) {
-            ctx.attribute("msg", e.getMessage());
-            ctx.render("createuser.html");
+        String password = "";
+        if(password1.equals(password2)){
+            password1 = password;
+            //opret user i DB
+            try {
+                UserMapper.createUser(email, password, connectionPool);
+                //alert bruger om at user er blevet lavet
+                String createConfirm = email+" er nu blevet oprettet som bruger!";
+                ctx.attribute("msg", createConfirm);
+                //tilbage til forside
+                ctx.render("index.html");
+            } catch (DatabaseException e) {
+                ctx.attribute("msg", e.getMessage());
+                ctx.render("createuser.html");
+            }
+        } else {
+           ctx.attribute("msg", "Your passwords do not match. Please try again");
+           ctx.render("createUser.html");
         }
-
     }
 
     public static void loginUser(Context ctx, ConnectionPool connectionPool){

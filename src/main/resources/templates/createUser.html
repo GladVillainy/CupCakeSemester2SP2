@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <title>CreateUser</title>
+
+    <!-- Place for css -->
+    <!-- header css -->
+    <link rel="stylesheet" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" th:href="@{/css/header/hamburger.css}">
+    <link rel="stylesheet" th:href="@{/css/header/logo.css}">
+    <link rel="stylesheet" th:href="@{/css/header/cart.css}">
+
+    <!-- text css-->
+    <link rel="stylesheet" th:href="@{/css/textstyle.css}">
+</head>
+<body>
+<!-- imported header from index -->
+<header th:replace="~{index :: header}"></header>
+
+<form action = "/createUser" method = "post">
+    <input type = "text" name = "email" placeholder="Enter your email"/>
+
+    <input type = "password" name = "password1" placeholder="Enter your password"/>
+    <input type = "password" name = "password2" placeholder="Enter your password"/>
+
+    <button type = "submit">Create user</button>
+
+    <h2><div><p th:text ="${msg}"></p></div> </h2>
+</form>
+
+</body>
+</html>

@@ -23,10 +23,16 @@ public class ShoppingCart {
         return tempOrderList;
     }
 
-    public static void removeCupcakeById(Integer cupcakeId){
-        Cupcake cupcake = tempOrderList.get(cupcakeId);
-
-        tempOrderList.remove(cupcake);
+    public static void removeCupcakeByBothNames(String topName, String bottomName){
+        for (int i = 0; i < tempOrderList.size(); i++) {
+            Cupcake cupcake = tempOrderList.get(i);
+            if (cupcake.getTopping().getName().equals(topName)
+                    && cupcake.getBottom().getName().equals(bottomName)) {
+                totalPrice = totalPrice-tempOrderList.get(i).getPrice();
+                tempOrderList.remove(i);
+                return;
+            }
+        }
     }
 
     public static double getTotalPrice() {
