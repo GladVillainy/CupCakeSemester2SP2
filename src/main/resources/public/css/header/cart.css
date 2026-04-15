@@ -15,65 +15,71 @@
     color: #333;
 }
 
-.cartTab{
+.cartTab {
     width: 400px;
     position: fixed;
     inset: 0 0 0 auto;
-
     background-color: white;
     border-color: black;
     color: black;
-
     display: grid;
     grid-template-rows: 70px 1fr 70px;
 }
 
-.cartTab h2{
-  padding: 20px;
-  margin: 0;
-  font-weight: 300;
+.cartTab h2 {
+    padding: 20px;
+    margin: 0;
+    font-weight: 300;
 }
 
-.cartTab .btn{
+.cartTab .btn {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
 }
 
-.cartTab .btn button{
+.cartTab .btn button {
     font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300; /* Makes the text look thin */
+    font-weight: 300;
     letter-spacing: 0.05em;
-
     cursor: pointer;
     border-bottom-color: black;
 }
 
-.listCart{
+.listCart {
     overflow: auto;
 }
 
-.listCart::-webkit-scrollbar{
-    width: 0; /*fjerner scrollbar*/
+.listCart::-webkit-scrollbar {
+    width: 0;
 }
 
-.cartTab .listCart .cartItem{
-    display:grid;
+.cartTab .listCart .cartItem {
+    display: grid;
     grid-template-columns: 150px 50px 1fr;
     gap: 10px;
     text-align: center;
-}
-.listCart .quantity{
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    background-color: transparent;
-    color: black;
-    border: none;
-    cursor: pointer;
+    align-items: center;
 }
 
-.listCart .quantity span:nth-child(2){
-    /*makes the span number background transparent*/
+.listCart .quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.listCart .quantity button {
+    font-family: 'Josefin Sans', sans-serif;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 0 4px;
+}
+
+.listCart .quantityCount {
+    min-width: 20px;
+    text-align: center;
     background-color: transparent;
     color: black;
 }

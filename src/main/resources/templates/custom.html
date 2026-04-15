@@ -31,13 +31,11 @@
     </figure>
 
     <form th:action="@{/addToCart}" method="post">
-
         <input type="hidden" id="selectedBottom" name="BottomId" value="">
         <input type="hidden" id="selectedTopping" name="toppingId" value="">
 
         <div class="bottomGrid">
-            <button type="button"
-                    class="customButton"
+            <button type="button" class="customButton"
                     th:each="bottom : ${bottoms}"
                     th:text="${bottom.name}"
                     th:attr="data-id=${bottom.id}"
@@ -46,8 +44,7 @@
         </div>
 
         <div class="toppingGrid">
-            <button type="button"
-                    class="customButton"
+            <button type="button" class="customButton"
                     th:each="topping : ${toppings}"
                     th:text="${topping.name}"
                     th:attr="data-id=${topping.id}"
@@ -55,18 +52,11 @@
             </button>
         </div>
 
-        <button type="submit">Bestil</button>
-
+        <button type="submit">Tilføj til kurven</button>
     </form>
-
-        <!-- submits the form -->
-        <button type="submit"> Tilføj til kurven</button>
-    </form>
-
     <!-- Place for js scripts -->
     <script th:src="@{/js/order.js}"></script>
     <script th:src="@{/js/hamburger.js}"></script>
-</div>
 </body>
 
 </html>

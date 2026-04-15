@@ -1,5 +1,7 @@
 
 import config.ThymeleafConfig;
+import controllers.CupcakeController;
+import entities.Cupcake;
 import persistence.ConnectionPool;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
@@ -24,6 +26,8 @@ public class Main {
 
 
         // Routing
+        CupcakeController.addRoutes(javApp, connectionPool);
+
         /*
         UserController.addRoutes(javApp, connectionPool);
         */
@@ -31,7 +35,7 @@ public class Main {
 
         // Start
         javApp.get("/", ctx -> ctx.render("index.html"));
-        javApp.get("/Custom", ctx -> ctx.render("custom.html"));
+        // javApp.get("/Custom", ctx -> ctx.render("custom.html"));
 
         /*
         //SubStats app - Team - A
