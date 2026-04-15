@@ -37,7 +37,7 @@ public class ShoppingCartController {
         String confirmation = "Din cupcake er nu blevet lagt i kurven!";
         ctx.attribute("msg", confirmation);
 
-        
+
         ctx.render("index.html");
 
     }

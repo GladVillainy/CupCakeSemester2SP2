@@ -33,4 +33,8 @@ public class User {
     public int getId() {
         return id;
     }
+
+    public double getBalance() {
+        return balance;
+    }
 }

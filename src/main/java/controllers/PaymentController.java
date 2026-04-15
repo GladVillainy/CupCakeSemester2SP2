@@ -18,10 +18,24 @@ public class PaymentController {
         double priceForCostumer = ShoppingCart.getTotalPrice();
         User costumer = ctx.sessionAttribute("currentUser");
 
+        //træk pengene fra user's balance.
+        if(costumer.getBalance() > priceForCostumer) {
+
         //PaymentMapper.pay(priceForCostumer, costumer, connectionPool);
+
+        }
+
+        //lav tempList fra shoppingCart til Ordre
+
+        //lav en samling af ordre bundet til users.
+
+        //
+
 
         String confirmation = priceForCostumer+" er nu blevet trukket fra "+costumer+"'s balance!";
         ctx.attribute("msg", confirmation);
+
+
         ctx.render("index.html");
     }
 }
