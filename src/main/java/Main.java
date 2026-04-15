@@ -3,6 +3,7 @@ import config.ThymeleafConfig;
 import controllers.CupcakeController;
 import controllers.IndexController;
 import controllers.ShoppingCartController;
+import controllers.UserController;
 import entities.Cupcake;
 import persistence.ConnectionPool;
 import io.javalin.Javalin;
@@ -31,21 +32,9 @@ public class Main {
         CupcakeController.addRoutes(javApp, connectionPool);
         ShoppingCartController.addRoutes(javApp,connectionPool);
         IndexController.addRoutes(javApp,connectionPool);
-
-        /*
-        UserController.addRoutes(javApp, connectionPool);
-        */
+        UserController.addRoutes(javApp,connectionPool);
 
 
-        // Start
-        javApp.get("/", ctx -> ctx.render("index.html"));
-        // javApp.get("/Custom", ctx -> ctx.render("custom.html"));
-
-        /*
-        //SubStats app - Team - A
-        app.controllers.teamA.UserController.addRoutes(javApp, connectionPool);
-        app.controllers.teamA.SubscriptionController.addRoutes(javApp, connectionPool);
-         */
 
     }
 }

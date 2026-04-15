@@ -14,7 +14,7 @@ public class UserController {
         app.post("/createuser", ctx -> createUser(ctx, connectionPool));
         app.get("/login", ctx -> ctx.render("login.html"));
         app.post("/login", ctx -> loginUser(ctx, connectionPool));
-        app.post("/logout", ctx -> logoutUser(ctx));
+        app.get("/logout", ctx -> logoutUser(ctx));
     }
 
     public static void createUser(Context ctx, ConnectionPool connectionPool){
@@ -50,6 +50,10 @@ public class UserController {
             User user = UserMapper.login(email, password, connectionPool);
             // sæt session til den brugte user
             ctx.sessionAttribute("currentUser", user);
+
+            //sætter currentUserActive til true
+            ctx.sessionAttribute("currentUserActive", "true");
+
             //send bruger til index
             ctx.render("index.html");
         } catch (DatabaseException e) {
@@ -64,6 +68,10 @@ public class UserController {
     public static void logoutUser(Context ctx){
         // stop session
         ctx.sessionAttribute("currentUser", null);
+
+        //sætter currentUserActive til false
+        ctx.sessionAttribute("currentUserActive", "false");
+
         // alert bruger om at der er blevet logget ud
         String logoutConfirm = "Du er nu logget ud";
         ctx.attribute("msg", logoutConfirm);

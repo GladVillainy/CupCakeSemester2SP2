@@ -32,8 +32,12 @@
             </div>
             <div id="hamburgerMenu">
                 <!-- options in burger menu -->
-                <h2><a href="#1">Login</a></h2>
-                <h2><a href="#2">Support</a></h2>
+
+                <h2><a th:if = "${session.currentUserActive != 'true'}" href="/login">Log In</a></h2>
+                <h2><a th:if = "${session.currentUserActive}"
+                   th:href = "@{/logout}">Log Out</a></h2>
+
+                <h2><a href="/support">Support</a></h2>
             </div>
         </div>
     </div>
@@ -56,14 +60,14 @@
     </a>
 
     <!-- representere Login med Email US-5 -->
-    <h2 th:if="${currentUserActive}">Velkommen: <p th:if="${currentUserActive}" th:text="${session.currentUser.email}"></p></h2>
+    <h2 th:if="${session.currentUserActive}">Velkommen: <p th:if="${session.currentUserActive}" th:text="${session.currentUser.email}"></p></h2>
 
     <div class="listCart">
         <div class="cartItem" th:each="Cupcake : ${session.sessionOrderList}">
             <p>Cupcake, Top og bund:</p>
             <div class="cartProductTop" th:text="${Cupcake.topping.name}"></div>
             <div class="cartProductBottom" th:text="${Cupcake.bottom.name}"></div>
-            <p>Samlet pris:</p>
+            <p>Samlet pris for Cupcake:</p>
             <div class="cartProductPrice" th:text="${Cupcake.price}"></div>
             <div class="quantity">
                 <!-- minus knap sender productId til cart/minus -->
@@ -75,13 +79,15 @@
                 <!-- antal items vises som tekst -->
                     <!-- <span th:text="${Cupcake.quantity}">0</span> -->
 
-                    <!-- plus knap sender productId til /cart/plus -->
-                <form th:action="@{/cart/plus}" method="post">
-                    <!--<input type="hidden" name="productId" th:value="${Cupcake.id}"> -->
+                    <!-- plus knap sender productId til /cart/plus
+                 <form th:action="@{/cart/plus}" method="post">
+                     <input type="hidden" name="productId" th:value="${Cupcake.id}">
                     <button type="submit" class="plus">+</button>
-                </form>
+                </form> -->
             </div>
         </div>
+        <p th:if="${session.sessionOrderList != null}" >Samlet pris for hele Ordren: </p>
+        <div class="cartProductPrice" th:if="${session.sessionOrderList != null}" th:text="${session.totalPrice}"></div>
         <div class = "btn">
             <form th:action="@{/closeTempOrder}" method="get">
             <button class = "close">CLOSE</button>

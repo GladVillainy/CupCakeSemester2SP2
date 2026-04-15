@@ -35,9 +35,6 @@ public class ShoppingCartController {
 
         ShoppingCart.addCupcake(cupcake);
 
-        //ShoppingCartMapper.addToCart(cupcake, connectionPool);
-        // måske noget med en arraylist fra en entities(shoppingcart)
-
         String confirmation = "Din cupcake er nu blevet lagt i kurven!";
         ctx.attribute("msg", confirmation);
         ctx.render("index.html");
@@ -63,6 +60,7 @@ public class ShoppingCartController {
         List<Cupcake> tempOrder = ShoppingCart.getTempOrderList();
 
         ctx.sessionAttribute("sessionOrderList", tempOrder);
+        ctx.sessionAttribute("totalPrice", ShoppingCart.getTotalPrice());
 
         //ingen confirmation behøvet her
 
