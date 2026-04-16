@@ -49,10 +49,10 @@ public class PaymentController {
 
         }
 
-        String confirmation = priceForCostumer+" er nu blevet trukket fra "+costumer+"'s balance!";
+        String confirmation = priceForCostumer+" er nu blevet trukket fra "+costumer.getEmail()+"'s balance!";
         ctx.attribute("msg", confirmation);
 
 
-        ctx.render("index.html");
+        ctx.redirect("/");
     }
 }
