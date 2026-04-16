@@ -46,6 +46,8 @@ public class PaymentController {
 
             //slette alt fra shoppingCart (temperary list) for reset
             ShoppingCart.resetAllOrders();
+            //updatere ordrelisten i ShoppingcartControlelr
+            ShoppingCartController.showTempOrder(ctx);
 
         }
 
