@@ -1,0 +1,240 @@
+@startuml OlskerCupcakes_ClassDiagram
+
+!pragma layout smetana
+
+title Olsker Cupcakes – Klassediagram
+
+' ─────────────────────────────────────────
+' ENTITIES
+' ─────────────────────────────────────────
+
+package entities {
+
+    class User {
+        - id : int
+        - email : String
+        - password : String
+        - role : String
+        - balance : double
+        + getId() : int
+        + getEmail() : String
+        + getRole() : String
+        + getBalance() : double
+        + setBalance(double) : void
+    }
+
+    class Cupcake {
+        - id : int
+        - price : double
+        - topping : Topping
+        - bottom : Bottom
+        + getTopping() : Topping
+        + getBottom() : Bottom
+        + getPrice() : double
+    }
+
+    class Topping {
+        - id : int
+        - name : String
+        - price : double
+        + getId() : int
+        + getName() : String
+        + getPrice() : double
+        + setId(int) : void
+        + setName(String) : void
+        + setPrice(double) : void
+    }
+
+    class Bottom {
+        - id : int
+        - name : String
+        - price : double
+        + getId() : int
+        + getName() : String
+        + getPrice() : double
+        + setId(int) : void
+        + setName(String) : void
+        + setPrice(double) : void
+    }
+
+    class Order {
+        - order : ArrayList<Cupcake>
+        + getOrder() : ArrayList<Cupcake>
+    }
+
+    class ShoppingCart {
+        - {static} tempOrderList : List<Cupcake>
+        - {static} totalPrice : double
+        + {static} addCupcake(Cupcake) : void
+        + {static} getTempOrderList() : List<Cupcake>
+        + {static} removeCupcakeByBothNames(String, String) : void
+        + {static} getTotalPrice() : double
+        + {static} resetAllOrders() : void
+    }
+
+    class ListOfOrders {
+        - listOfOrders : ArrayList<Order>
+        + getListOfOrders() : ArrayList<Order>
+    }
+}
+
+' ─────────────────────────────────────────
+' PERSISTENCE
+' ─────────────────────────────────────────
+
+package persistence {
+
+    class ConnectionPool {
+        - {static} instance : ConnectionPool
+        + {static} getInstance() : ConnectionPool
+        + {static} getInstance(String, String, String, String) : ConnectionPool
+        + getConnection() : Connection
+        + close() : void
+    }
+
+    class BottomMapper {
+        + {static} getAllBottoms(ConnectionPool) : List<Bottom>
+        + {static} getBottomById(int, ConnectionPool) : Bottom
+    }
+
+    class ToppingMapper {
+        + {static} getAllToppings(ConnectionPool) : List<Topping>
+        + {static} getToppingById(int, ConnectionPool) : Topping
+    }
+
+    class OrderMapper {
+        + {static} makeOrder(int, ConnectionPool) : int
+        + {static} addItemToOrder(int, int, int, ConnectionPool) : void
+        + {static} listOfOrdersByUser(User, ConnectionPool) : ListOfOrders
+    }
+
+    class UserMapper {
+        + {static} getAllUsers(ConnectionPool) : List<User>
+        + {static} getUserById(int, ConnectionPool) : User
+        + {static} login(String, String, ConnectionPool) : User
+        + {static} createUser(String, String, ConnectionPool) : void
+    }
+
+    class PaymentMapper {
+        + {static} pay(double, User, ConnectionPool) : void
+    }
+}
+
+' ─────────────────────────────────────────
+' CONTROLLERS
+' ─────────────────────────────────────────
+
+package controllers {
+
+    class IndexController {
+        + {static} addRoutes(Javalin, ConnectionPool) : void
+        + {static} closeTempOrder(Context) : void
+    }
+
+    class CupcakeController {
+        + {static} addRoutes(Javalin, ConnectionPool) : void
+        + {static} listCupcakes(Context, ConnectionPool) : void
+    }
+
+    class ShoppingCartController {
+        + {static} addRoutes(Javalin, ConnectionPool) : void
+        + {static} addToCart(Context, ConnectionPool) : void
+        + {static} showFormerOrders(Context, ConnectionPool) : void
+        + {static} showTempOrder(Context) : void
+        + {static} removeItemFromTempOrder(Context) : void
+    }
+
+    class UserController {
+        + {static} addRoutes(Javalin, ConnectionPool) : void
+        + {static} createUser(Context, ConnectionPool) : void
+        + {static} loginUser(Context, ConnectionPool) : void
+        + {static} logoutUser(Context) : void
+    }
+
+    class AdminController {
+        + {static} addRoutes(Javalin, ConnectionPool) : void
+        + {static} addToBalance(Context, ConnectionPool) : void
+        + {static} showPayedOrders(Context, ConnectionPool) : void
+        + {static} showAllOrders(Context, ConnectionPool) : void
+        + {static} removeOrderById(Context, ConnectionPool) : void
+        + {static} showAllUsers(Context, ConnectionPool) : void
+    }
+
+    class PaymentController {
+        + {static} addRoutes(Javalin, ConnectionPool) : void
+        + {static} pay(Context, ConnectionPool) : void
+    }
+}
+
+' ─────────────────────────────────────────
+' EXCEPTIONS
+' ─────────────────────────────────────────
+
+package exceptions {
+    class DatabaseException {
+        + DatabaseException(String)
+    }
+}
+
+' ─────────────────────────────────────────
+' RELATIONER – ENTITIES
+' ─────────────────────────────────────────
+
+Cupcake "1" *-- "1" Topping
+Cupcake "1" *-- "1" Bottom
+Order "1" *-- "1..*" Cupcake
+ShoppingCart "1" o-- "0..*" Cupcake
+ListOfOrders "1" *-- "0..*" Order
+User "1" -- "0..*" Order
+
+' ─────────────────────────────────────────
+' RELATIONER – PERSISTENCE → ENTITIES
+' ─────────────────────────────────────────
+
+BottomMapper ..> Bottom
+BottomMapper ..> ConnectionPool
+ToppingMapper ..> Topping
+ToppingMapper ..> ConnectionPool
+OrderMapper ..> Order
+OrderMapper ..> ListOfOrders
+OrderMapper ..> ConnectionPool
+UserMapper ..> User
+UserMapper ..> ConnectionPool
+PaymentMapper ..> User
+PaymentMapper ..> ConnectionPool
+
+' ─────────────────────────────────────────
+' RELATIONER – CONTROLLERS → PERSISTENCE/ENTITIES
+' ─────────────────────────────────────────
+
+CupcakeController ..> BottomMapper
+CupcakeController ..> ToppingMapper
+CupcakeController ..> ConnectionPool
+
+ShoppingCartController ..> ShoppingCart
+ShoppingCartController ..> BottomMapper
+ShoppingCartController ..> ToppingMapper
+ShoppingCartController ..> ConnectionPool
+
+UserController ..> UserMapper
+UserController ..> User
+UserController ..> ConnectionPool
+UserController ..> DatabaseException
+
+AdminController ..> UserMapper
+AdminController ..> ConnectionPool
+
+PaymentController ..> PaymentMapper
+PaymentController ..> OrderMapper
+PaymentController ..> ShoppingCart
+PaymentController ..> Order
+PaymentController ..> User
+PaymentController ..> ConnectionPool
+
+' ─────────────────────────────────────────
+' UNDTAGELSER
+' ─────────────────────────────────────────
+
+DatabaseException --|> RuntimeException
+
+@enduml

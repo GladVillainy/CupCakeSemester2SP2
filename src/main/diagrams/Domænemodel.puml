@@ -1,0 +1,53 @@
+@startuml OlskerCupcakes_DomainModel
+
+!pragma layout smetana
+
+title Olsker Cupcakes – Domænemodel
+
+class User {
+    - id : int
+    - email : String
+    - role : String
+    - balance : double
+}
+
+class Cupcake {
+     -  id : int
+    - price : double
+}
+
+class Topping {
+    - id : int
+    - name : String
+    - price : double
+}
+
+class Bottom {
+    - id : int
+    - name : String
+    - price : double
+}
+
+class Order {
+}
+
+class ShoppingCart {
+    - totalPrice : double
+}
+
+class ListOfOrders {
+}
+
+Cupcake "1" *-- "1" Topping
+Cupcake "1" *-- "1" Bottom
+
+ShoppingCart "1" o-- "0..*" Cupcake
+
+Order "1" *-- "1..*" Cupcake
+
+ListOfOrders "1" *-- "0..*" Order
+
+User "1" -- "1" ShoppingCart
+User "1" -- "0..*" Order
+
+@enduml
