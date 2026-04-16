@@ -53,6 +53,6 @@ public class PaymentController {
         ctx.attribute("msg", confirmation);
 
 
-        ctx.redirect("/");
+        ctx.render("index.html");
     }
 }
