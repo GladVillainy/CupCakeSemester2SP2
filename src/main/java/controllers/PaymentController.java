@@ -40,7 +40,7 @@ public class PaymentController {
                 int cupcake_bottom_id = cupcake.getBottom().getId();
 
                 //LAV for hver cupcake i newOrder, en order_item til den nye order med orderId'et
-                OrderMapper.addItemToOrder(orderId, cupcake_bottom_id, cupcake_topping_id, connectionPool);
+                OrderMapper.addItemToOrder(orderId, cupcake_topping_id, cupcake_bottom_id, connectionPool);
 
             }
 
