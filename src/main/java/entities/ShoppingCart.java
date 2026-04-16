@@ -40,9 +40,9 @@ public class ShoppingCart {
     }
 
     public static void resetAllOrders() {
-        for (Cupcake cupcake : tempOrderList) {
-            cupcake = null;
-        }
+        List<Cupcake> dubplicateList = getTempOrderList();
+        tempOrderList.removeAll(dubplicateList);
+        totalPrice = 0;
     }
 
 }
