@@ -50,6 +50,9 @@ public class PaymentController {
             ctx.sessionAttribute("sessionOrderList", ShoppingCart.getTempOrderList());
             ctx.sessionAttribute("totalPrice", ShoppingCart.getTotalPrice());
 
+
+
+
         }
 
         String confirmation = priceForCostumer+" er nu blevet trukket fra "+costumer.getEmail()+"'s balance!";
