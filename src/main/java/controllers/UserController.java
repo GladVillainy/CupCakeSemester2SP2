@@ -28,7 +28,7 @@ public class UserController {
             password1 = password;
             //opret user i DB
             try {
-                UserMapper.createUser(email, password, connectionPool);
+                UserMapper.createUser(email, password2, connectionPool);
                 //alert bruger om at user er blevet lavet
                 String createConfirm = email+" er nu blevet oprettet som bruger!";
                 ctx.attribute("msg", createConfirm);
