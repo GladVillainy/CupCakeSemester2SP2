@@ -39,4 +39,10 @@ public class ShoppingCart {
         return totalPrice;
     }
 
+    public static void resetAllOrders() {
+        for (Cupcake cupcake : tempOrderList) {
+            cupcake = null;
+        }
+    }
+
 }

@@ -1,13 +1,14 @@
 package entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Order {
     private ArrayList<Cupcake> order = new ArrayList<>();
 
 
-    public Order(ArrayList<Cupcake> order){
-        this.order = order;
+    public Order(List<Cupcake> order){
+        this.order = new ArrayList<>(order);
 
     }
 
