@@ -79,6 +79,6 @@ public class OrderMapper {
         }catch(SQLException e) {
             throw new DatabaseException("DB fejl: " + e.getMessage());
         }
-
+        return newListOfOrders;
     }
 }

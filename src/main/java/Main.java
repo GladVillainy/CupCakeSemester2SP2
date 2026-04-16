@@ -31,6 +31,7 @@ public class Main {
         IndexController.addRoutes(javApp,connectionPool);
         UserController.addRoutes(javApp,connectionPool);
         AdminController.addRoutes(javApp,connectionPool);
+        PaymentController.addRoutes(javApp,connectionPool);
 
 
 
