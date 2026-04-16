@@ -27,8 +27,6 @@ public class PaymentMapper {
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected != 1) {
                 throw new DatabaseException("Fejl ved at betale for Ordren");
-            } else {
-                throw new DatabaseException("Fejl i login. Prøv igen");
             }
         } catch (SQLException e) {
             throw new DatabaseException("DB fejl: " + e.getMessage());
