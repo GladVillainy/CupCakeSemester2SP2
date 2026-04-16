@@ -68,6 +68,7 @@
 
     <!-- representere Login med Email US-5 -->
     <h2 th:if="${session.currentUserActive}">Velkommen: <p th:if="${session.currentUserActive}" th:text="${session.currentUser.email}"></p></h2>
+    <h2 th:if="${session.currentUserActive}">Balance: <p th:if="${session.currentUserActive}" th:text="${session.currentUser.balance}"></p></h2>
 
     <div class="listCart">
         <div class="cartItem" th:each="Cupcake : ${session.sessionOrderList}">
