@@ -29,7 +29,7 @@ public class PaymentMapper {
             if (rowsAffected != 1) {
                 throw new DatabaseException("Fejl ved at betale for Ordren");
             }
-            double newBalance = balanceBefore-negativePriceForCostumer;
+            double newBalance = balanceBefore+negativePriceForCostumer;
             //sætter costumer balance i Java også, ikke kun i db
             costumer.setBalance(newBalance);
 
